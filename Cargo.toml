@@ -8,13 +8,9 @@ name = "esp32-cam-test"
 path = "./src/bin/main.rs"
 
 [dependencies]
-defmt = "0.3.10"
-embassy-net = { version = "0.6.0", features = [
-  "dhcpv4",
-  "medium-ethernet",
-  "tcp",
-  "udp",
-] }
+defmt = { version = "0.3.10", features = ["alloc"] }
+embassy-net = { version = "0.6.0", features = ["dhcpv4", "medium-ethernet", "tcp", "udp", "defmt"] }
+embedded-hal = "1.0.0"
 embedded-io = "0.6.1"
 embedded-io-async = "0.6.1"
 esp-alloc = "0.7.0"
@@ -22,6 +18,7 @@ esp-hal = { version = "1.0.0-beta.0", features = [
   "defmt",
   "esp32",
   "unstable",
+  "psram",
 ] }
 esp-println = { version = "0.13.0", features = ["defmt-espflash", "esp32"] }
 smoltcp = { version = "0.12.0", default-features = false, features = [
@@ -54,6 +51,12 @@ esp-wifi = { version = "0.13.0", features = [
 heapless = { version = "0.8.0", default-features = false }
 static_cell = { version = "2.1.0", features = ["nightly"] }
 
+picoserve = { version = "0.15.0", features = ["alloc", "log", "embassy", ] }
+
+embedded-alloc = { version = "0.6.0", features = ["allocator_api"] }
+
+esp-backtrace = { version = "0.15" , features = ["esp32", "defmt", "panic-handler"] }
+
 [profile.dev]
 # Rust debug is too slow.
 # For debug builds always builds with some optimization
@@ -67,3 +70,9 @@ incremental      = false
 lto              = 'fat'
 opt-level        = 's'
 overflow-checks  = false
+
+[patch.crates-io]
+# until the PR is merged: https://github.com/esp-rs/esp-hal/pull/3219
+esp-hal = { git = "https://github.com/rursprung/esp-hal.git", branch = "i2s-cam" }
+xtensa-lx = { git = "https://github.com/rursprung/esp-hal.git", branch = "i2s-cam" }
+xtensa-lx-rt = { git = "https://github.com/rursprung/esp-hal.git", branch = "i2s-cam" }
