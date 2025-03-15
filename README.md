@@ -9,5 +9,8 @@ can serve as a reasonable example for anything.
 This is based on [Dominaezzz/esp32-mjpeg] which targets the ESP32S3. In an optimal world there would be some traits
 implemented for both devices and an application can be agnostic of them.
 
+This currently requires a custom `esp-hal` until [esp-hal#3219] is merged & released.
+
 [`CameraWebServer` Arduino example]: https://github.com/espressif/arduino-esp32/tree/master/libraries/ESP32/examples/Camera/CameraWebServer
 [Dominaezzz/esp32-mjpeg]: https://github.com/Dominaezzz/esp32-mjpeg
+[esp-hal#3219]: https://github.com/esp-rs/esp-hal/pull/3219
